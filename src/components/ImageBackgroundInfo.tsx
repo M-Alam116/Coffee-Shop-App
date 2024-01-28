@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   },
   ImageInfoOuterContainer: {
     paddingVertical: SPACING.space_24,
-    paddingHorizontal: SPACING.space_30,
+    paddingHorizontal: SPACING.space_20,
     backgroundColor: COLORS.primaryBlackRGBA,
     borderTopLeftRadius: BORDERRADIUS.radius_20 * 2,
     borderTopRightRadius: BORDERRADIUS.radius_20 * 2,
