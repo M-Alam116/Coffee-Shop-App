@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {create} from 'zustand';
 import {produce} from 'immer';
 import {persist, createJSONStorage} from 'zustand/middleware';
@@ -19,19 +20,19 @@ export const useStore = create(
           produce(state => {
             let found = false;
             for (let i = 0; i < state.CartList.length; i++) {
-              if (state.CartList[i].id == cartItem.id) {
+              if (state.CartList[i].id === cartItem.id) {
                 found = true;
                 let size = false;
                 for (let j = 0; j < state.CartList[i].prices.length; j++) {
                   if (
-                    state.CartList[i].prices[j].size == cartItem.prices[0].size
+                    state.CartList[i].prices[j].size === cartItem.prices[0].size
                   ) {
                     size = true;
                     state.CartList[i].prices[j].quantity++;
                     break;
                   }
                 }
-                if (size == false) {
+                if (size === false) {
                   state.CartList[i].prices.push(cartItem.prices[0]);
                 }
                 state.CartList[i].prices.sort((a: any, b: any) => {
@@ -46,7 +47,7 @@ export const useStore = create(
                 break;
               }
             }
-            if (found == false) {
+            if (found === false) {
               state.CartList.push(cartItem);
             }
           }),
@@ -72,10 +73,10 @@ export const useStore = create(
       addToFavoriteList: (type: string, id: string) =>
         set(
           produce(state => {
-            if (type == 'Coffee') {
+            if (type === 'Coffee') {
               for (let i = 0; i < state.CoffeeList.length; i++) {
-                if (state.CoffeeList[i].id == id) {
-                  if (state.CoffeeList[i].favourite == false) {
+                if (state.CoffeeList[i].id === id) {
+                  if (state.CoffeeList[i].favourite === false) {
                     state.CoffeeList[i].favourite = true;
                     state.FavoritesList.unshift(state.CoffeeList[i]);
                   } else {
@@ -84,10 +85,10 @@ export const useStore = create(
                   break;
                 }
               }
-            } else if (type == 'Bean') {
+            } else if (type === 'Bean') {
               for (let i = 0; i < state.BeanList.length; i++) {
-                if (state.BeanList[i].id == id) {
-                  if (state.BeanList[i].favourite == false) {
+                if (state.BeanList[i].id === id) {
+                  if (state.BeanList[i].favourite === false) {
                     state.BeanList[i].favourite = true;
                     state.FavoritesList.unshift(state.BeanList[i]);
                   } else {
@@ -102,10 +103,10 @@ export const useStore = create(
       deleteFromFavoriteList: (type: string, id: string) =>
         set(
           produce(state => {
-            if (type == 'Coffee') {
+            if (type === 'Coffee') {
               for (let i = 0; i < state.CoffeeList.length; i++) {
-                if (state.CoffeeList[i].id == id) {
-                  if (state.CoffeeList[i].favourite == true) {
+                if (state.CoffeeList[i].id === id) {
+                  if (state.CoffeeList[i].favourite === true) {
                     state.CoffeeList[i].favourite = false;
                   } else {
                     state.CoffeeList[i].favourite = true;
@@ -113,10 +114,10 @@ export const useStore = create(
                   break;
                 }
               }
-            } else if (type == 'Beans') {
+            } else if (type === 'Beans') {
               for (let i = 0; i < state.BeanList.length; i++) {
-                if (state.BeanList[i].id == id) {
-                  if (state.BeanList[i].favourite == true) {
+                if (state.BeanList[i].id === id) {
+                  if (state.BeanList[i].favourite === true) {
                     state.BeanList[i].favourite = false;
                   } else {
                     state.BeanList[i].favourite = true;
@@ -127,7 +128,7 @@ export const useStore = create(
             }
             let spliceIndex = -1;
             for (let i = 0; i < state.FavoritesList.length; i++) {
-              if (state.FavoritesList[i].id == id) {
+              if (state.FavoritesList[i].id === id) {
                 spliceIndex = i;
                 break;
               }
@@ -139,9 +140,9 @@ export const useStore = create(
         set(
           produce(state => {
             for (let i = 0; i < state.CartList.length; i++) {
-              if (state.CartList[i].id == id) {
+              if (state.CartList[i].id === id) {
                 for (let j = 0; j < state.CartList[i].prices.length; j++) {
-                  if (state.CartList[i].prices[j].size == size) {
+                  if (state.CartList[i].prices[j].size === size) {
                     state.CartList[i].prices[j].quantity++;
                     break;
                   }
@@ -154,9 +155,9 @@ export const useStore = create(
         set(
           produce(state => {
             for (let i = 0; i < state.CartList.length; i++) {
-              if (state.CartList[i].id == id) {
+              if (state.CartList[i].id === id) {
                 for (let j = 0; j < state.CartList[i].prices.length; j++) {
-                  if (state.CartList[i].prices[j].size == size) {
+                  if (state.CartList[i].prices[j].size === size) {
                     if (state.CartList[i].prices.length > 1) {
                       if (state.CartList[i].prices[j].quantity > 1) {
                         state.CartList[i].prices[j].quantity--;

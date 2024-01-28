@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 interface Spacing {
   space_2: number;
   space_4: number;
