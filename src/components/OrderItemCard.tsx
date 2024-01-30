@@ -87,17 +87,18 @@ const OrderItemCard: React.FC<OrderItemCardProps> = ({
 const styles = StyleSheet.create({
   CardLinearGradient: {
     gap: SPACING.space_20,
-    padding: SPACING.space_20,
+    padding: SPACING.space_12,
     borderRadius: BORDERRADIUS.radius_25,
   },
   CardInfoContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    gap: 5,
   },
   CardImageInfoContainer: {
     flexDirection: 'row',
-    gap: SPACING.space_20,
+    gap: SPACING.space_10,
     alignItems: 'center',
   },
   Image: {

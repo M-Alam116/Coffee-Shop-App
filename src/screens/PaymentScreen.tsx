@@ -210,11 +210,11 @@ const styles = StyleSheet.create({
     width: SPACING.space_36,
   },
   PaymentOptionsContainer: {
-    padding: SPACING.space_15,
+    padding: SPACING.space_10,
     gap: SPACING.space_15,
   },
   CreditCardContainer: {
-    padding: SPACING.space_10,
+    padding: 7,
     gap: SPACING.space_10,
     borderRadius: BORDERRADIUS.radius_15 * 2,
     borderWidth: 3,
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
   LinearGradientStyle: {
     borderRadius: BORDERRADIUS.radius_25,
     gap: SPACING.space_36,
-    paddingHorizontal: SPACING.space_15,
+    paddingHorizontal: 8,
     paddingVertical: SPACING.space_10,
   },
   CreditCardRow: {

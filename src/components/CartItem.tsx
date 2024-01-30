@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
   SizeBox: {
     backgroundColor: COLORS.primaryBlackHex,
     height: 40,
-    width: 100,
+    width: 60,
     borderRadius: BORDERRADIUS.radius_10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -273,7 +273,7 @@ const styles = StyleSheet.create({
   },
   CartItemQuantityContainer: {
     backgroundColor: COLORS.primaryBlackHex,
-    width: 80,
+    width: 50,
     borderRadius: BORDERRADIUS.radius_10,
     borderWidth: 2,
     borderColor: COLORS.primaryOrangeHex,
@@ -300,17 +300,20 @@ const styles = StyleSheet.create({
   CartItemSingleInfoContainer: {
     flex: 1,
     alignSelf: 'stretch',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
   },
   CartItemSingleSizeValueContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    gap: SPACING.space_10,
   },
   CartItemSingleQuantityContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    gap: SPACING.space_10,
+    marginTop: 5,
   },
 });
 

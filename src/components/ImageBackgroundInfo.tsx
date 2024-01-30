@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   },
   ImageInfoOuterContainer: {
     paddingVertical: SPACING.space_24,
-    paddingHorizontal: SPACING.space_20,
+    paddingHorizontal: SPACING.space_10,
     backgroundColor: COLORS.primaryBlackRGBA,
     borderTopLeftRadius: BORDERRADIUS.radius_20 * 2,
     borderTopRightRadius: BORDERRADIUS.radius_20 * 2,
@@ -189,6 +189,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    gap: 7,
   },
   ItemTitleText: {
     fontFamily: FONTFAMILY.poppins_semibold,
@@ -203,7 +204,7 @@ const styles = StyleSheet.create({
   ItemPropertiesContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: SPACING.space_20,
+    gap: SPACING.space_10,
   },
   ProperFirst: {
     height: 55,
