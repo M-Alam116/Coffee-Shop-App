@@ -8,13 +8,47 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {BORDERRADIUS, COLORS, FONTFAMILY, FONTSIZE} from '../theme/theme';
+
+import firebase from '@react-native-firebase/app';
+import '@react-native-firebase/auth';
 
 const SignInScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setError('');
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [error]);
+
+  const handleSignIn = async () => {
+    if (!email.trim() || !password.trim()) {
+      setError('All fields are required!');
+      return;
+    }
+    setLoading(true);
+    try {
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+      navigation.navigate('Tab');
+
+      setEmail('');
+      setPassword('');
+      setError('');
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <View style={styles.ScreenContainer}>
@@ -38,19 +72,29 @@ const SignInScreen = ({navigation}) => {
             <TextInput
               placeholder="Password"
               value={password}
+              secureTextEntry
               onChangeText={text => {
                 setPassword(text);
               }}
               placeholderTextColor={COLORS.primaryLightGreyHex}
               style={styles.TextInputContainer}
             />
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Sign In</Text>
+            {error && <Text style={styles.errorText}>{error}</Text>}
+            <TouchableOpacity style={styles.button} onPress={handleSignIn}>
+              {loading ? (
+                <ActivityIndicator size={22} color={'white'} />
+              ) : (
+                <Text style={styles.buttonText}>Sign In</Text>
+              )}
             </TouchableOpacity>
           </View>
           <View style={styles.bottom}>
             <Text style={styles.leftText}>Don’t have an account?</Text>
-            <Text style={styles.rightText} onPress={() => navigation.navigate('SignUp')}>Sign Up</Text>
+            <Text
+              style={styles.rightText}
+              onPress={() => navigation.navigate('SignUp')}>
+              Sign Up
+            </Text>
           </View>
         </View>
       </ScrollView>
@@ -72,6 +116,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'space-around',
     alignItems: 'center',
+    gap: 20,
   },
   logo: {
     width: 130,
@@ -115,6 +160,10 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: FONTSIZE.size_14,
     fontWeight: '600',
+  },
+  errorText: {
+    color: COLORS.primaryRedHex,
+    textAlign: 'center',
   },
 });
 

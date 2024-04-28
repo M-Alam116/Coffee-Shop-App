@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 // Navigation imports
 import {NavigationContainer} from '@react-navigation/native';
@@ -13,15 +13,38 @@ import SignUpScreen from './src/screens/SignUpScreen';
 
 import SplashScreen from 'react-native-splash-screen';
 
+import auth from '@react-native-firebase/auth';
+
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState(null);
+
   useEffect(() => {
     SplashScreen.hide();
   }, []);
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+
+  if (initializing) return null;
+
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen
+          name="Tab"
+          component={user ? TabNavigator : SignInScreen}
+          options={{animation: 'slide_from_bottom'}}
+        />
         <Stack.Screen
           name="SignIn"
           component={SignInScreen}
@@ -30,11 +53,6 @@ const App = () => {
         <Stack.Screen
           name="SignUp"
           component={SignUpScreen}
-          options={{animation: 'slide_from_bottom'}}
-        />
-        <Stack.Screen
-          name="Tab"
-          component={TabNavigator}
           options={{animation: 'slide_from_bottom'}}
         />
         <Stack.Screen
