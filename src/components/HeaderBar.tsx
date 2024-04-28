@@ -1,10 +1,12 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Pressable, StyleSheet, Text, View, Image} from 'react-native';
 import {COLORS, FONTFAMILY, FONTSIZE, SPACING} from '../theme/theme';
-import GradientBGIcon from './GradientBGIcon';
-import ProfilePic from './ProfilePic';
+// import GradientBGIcon from './GradientBGIcon';
 import auth from '@react-native-firebase/auth';
+import {useNavigation} from '@react-navigation/native';
+
+import firestore from '@react-native-firebase/firestore';
 
 interface HeaderBarProps {
   title?: string;
@@ -15,13 +17,52 @@ const HeaderBar: React.FC<HeaderBarProps> = ({title}) => {
     auth().signOut();
   };
 
+  const navigation = useNavigation();
+
+  const [image, setImage] = useState(null);
+
+  const userId = auth().currentUser?.uid;
+  const db = firestore();
+
+  const fetchUserData = async () => {
+    try {
+      const userRef = db.collection('users').doc(userId);
+      const unsubscribe = userRef.onSnapshot(doc => {
+        const userData = doc?._data;
+        if (userData) {
+          setImage(userData.profileImg);
+        }
+      });
+
+      return unsubscribe;
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
   return (
     <View style={styles.HeaderContainer}>
       <Pressable style={styles.button} onPress={handleLogout}>
         <Text style={styles.buttonText}>Logout</Text>
       </Pressable>
       <Text style={styles.HeaderText}>{title}</Text>
-      <ProfilePic />
+      <Pressable onPress={() => navigation.navigate('Profile')}>
+        {image ? (
+          <Image
+            source={{uri: image}}
+            style={styles.image}
+          />
+        ) : (
+          <Image
+            source={require('../assets/profile.png')}
+            style={styles.image}
+          />
+        )}
+      </Pressable>
     </View>
   );
 };
@@ -47,6 +88,11 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '600',
     fontSize: 12,
+  },
+  image: {
+    width: 35,
+    height: 35,
+    borderRadius: 50,
   },
 });
 

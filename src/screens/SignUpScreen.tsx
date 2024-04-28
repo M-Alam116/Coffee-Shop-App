@@ -49,7 +49,7 @@ const SignUpScreen = ({navigation}) => {
         .set({
           name: name,
           email: email,
-          image: '',
+          profileImg: '',
         });
 
       navigation.navigate('Tab');

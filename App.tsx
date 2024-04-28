@@ -10,6 +10,7 @@ import PaymentScreen from './src/screens/PaymentScreen';
 import TabNavigator from './src/navigators/TabNavigator';
 import SignInScreen from './src/screens/SignInScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
 
 import SplashScreen from 'react-native-splash-screen';
 
@@ -53,6 +54,11 @@ const App = () => {
         <Stack.Screen
           name="SignUp"
           component={SignUpScreen}
+          options={{animation: 'slide_from_bottom'}}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={ProfileScreen}
           options={{animation: 'slide_from_bottom'}}
         />
         <Stack.Screen
